@@ -74,15 +74,7 @@ namespace Quadax_Exercise
 
 
             }
-
-            private string ComputeRandomNumbers()
-            {
-                string answer = "";
-                Random rnd = new Random();
-                int next = rnd.Next(1, 6);
-                answer = next.ToString();
-                return answer;
-            }
+            
 
             public void GetAllDigits()
             {
@@ -90,13 +82,13 @@ namespace Quadax_Exercise
                 Random rnd = new Random();
                 for (int i = 0; i < 4; i++)
                 {
-                    digit4 += rnd.Next(1, 6); // this.ComputeRandomNumbers();
+                    digit4 += rnd.Next(1, 6);
                 }
 
                 this.Number = digit4;
             }
 
-            
+
 
             public (int, int) NumberOfMinusPlusSigns(string incomingDigits)
             {
@@ -105,12 +97,12 @@ namespace Quadax_Exercise
                 int minus = 0;
                 Dictionary<char, int> trackNumDigits = new Dictionary<char, int>();
 
-                foreach(var digit in incomingDigits)
+                foreach (var digit in incomingDigits)
                 {
                     trackNumDigits.TryGetValue(digit, out var thenumUserEntered);
-                    if (digit == this.Number[position] /*&& (thenum < maxdigits || thenum == 0)*/)
+                    if (digit == this.Number[position])
                     {
-                        plus++;     
+                        plus++;
                         if (thenumUserEntered == 0)
                         {
                             trackNumDigits[digit] = 1;
@@ -126,42 +118,27 @@ namespace Quadax_Exercise
 
                 foreach (var digit in incomingDigits)
                 {
-                    int maxdigitsUserEntered = incomingDigits/*this.Number*/.Count(cnt => cnt == digit);
+                    int maxdigitsUserEntered = incomingDigits.Count(cnt => cnt == digit);
                     int maxdigitsRandom = this.Number.Count(cnt => cnt == digit);
                     trackNumDigits.TryGetValue(digit, out var thenumUserEntered);
 
-                    //if (digit == this.Number[position] /*&& (thenum < maxdigits || thenum == 0)*/)
-                    //{
-                    //    plus++;
-                    //    //trackNumDigits[digit] = plus;
-                    //}
-                    //else
-                    //{
-                        //is it in the rest of the string?
-                        // get substring
-                        //var gotrestOfString = this.Number.Substring(/*position*/0, /*4 - position*/this.Number.Length);
-                        // is it there?
 
-                        var otherPositions = this.Number/*gotrestOfString*/.FirstOrDefault(fd => fd == digit);
-                        if (otherPositions != '\0'  && ((thenumUserEntered  < maxdigitsUserEntered && thenumUserEntered < maxdigitsRandom) || thenumUserEntered == 0))
+                    // is it there?
+
+                    var otherPositions = this.Number.FirstOrDefault(fd => fd == digit);
+                    if (otherPositions != '\0' && ((thenumUserEntered < maxdigitsUserEntered && thenumUserEntered < maxdigitsRandom) || thenumUserEntered == 0))
+                    {
+                        // don't go above total count
+                        minus++;
+                        if (thenumUserEntered == 0)
                         {
-                            // don't go above total count
-                            minus++;
-                            if (thenumUserEntered == 0)
-                            {
-                                trackNumDigits[digit] = 1;
-                            }
-                            else
-                            {
-                                trackNumDigits[digit]++;
-                            }
+                            trackNumDigits[digit] = 1;
                         }
-
-                        // now look back
-                        //gotrestOfString = this.Number.Substring(4 - position,)
-                    //}
-
-                    //position++;
+                        else
+                        {
+                            trackNumDigits[digit]++;
+                        }
+                    }
                 }
 
                 return (plus, minus);
