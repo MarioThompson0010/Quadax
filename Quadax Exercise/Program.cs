@@ -23,9 +23,9 @@ namespace Quadax_Exercise
 
                 string receivedDigitsFromConsole = userInteraction.GetSetDigitsFromUser;
 
-                if (Regex.IsMatch(receivedDigitsFromConsole, @"^\d{4}$") == false)
+                if (Regex.IsMatch(receivedDigitsFromConsole, @"^[1-6]{4}$") == false)
                 {
-                    Console.WriteLine("You must enter exactly 4 digits.");
+                    Console.WriteLine("You must enter exactly 4 digits, 1 through 6.");
                     continue;
                 }
 
@@ -57,6 +57,8 @@ namespace Quadax_Exercise
             {
                 Console.WriteLine("You lost. Sorry");
             }
+
+            Console.WriteLine($"Randomly generated number: {randomNumberGenerator.CompleteNumber}");
         }
 
 
