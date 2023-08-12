@@ -16,6 +16,7 @@ namespace Quadax_Exercise
             randomNumberGenerator.GetAllDigits();
             string getnumber = randomNumberGenerator.CompleteNumber;
 
+            // 10 times
             for (int i = 0; i < 10; i++)
             {
                 userInteraction.SendMessageToUser();
@@ -91,7 +92,11 @@ namespace Quadax_Exercise
             }
 
 
-
+            /// <summary>
+            /// Number of minus and plus signs to display
+            /// </summary>
+            /// <param name="incomingDigits">randomly generated number</param>
+            /// <returns></returns>
             public (int, int) NumberOfMinusPlusSigns(string incomingDigits)
             {
                 int position = 0;
@@ -99,6 +104,7 @@ namespace Quadax_Exercise
                 int minus = 0;
                 Dictionary<char, int> trackNumDigits = new Dictionary<char, int>();
 
+                // first check for plus signs
                 foreach (var digit in incomingDigits)
                 {
                     trackNumDigits.TryGetValue(digit, out var thenumUserEntered);
@@ -118,6 +124,7 @@ namespace Quadax_Exercise
                     position++;
                 }
 
+                // now check for minus signs
                 foreach (var digit in incomingDigits)
                 {
                     int maxdigitsUserEntered = incomingDigits.Count(cnt => cnt == digit);
